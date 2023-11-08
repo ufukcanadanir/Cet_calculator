@@ -1,4 +1,6 @@
-﻿namespace CetCalculator
+﻿using Microsoft.VisualBasic;
+
+namespace CetCalculator
 {
     public partial class MainPage : ContentPage
     {
@@ -12,14 +14,18 @@
             Display.Text = "0";
         }
 
-        private void Button0_Clicked(object sender, EventArgs e)
+        private async void Button0_Clicked(object sender, EventArgs e)
         {
-            Display.Text += "0";
+            await digitClicked(0);
         }
 
         private void ClearButton_Clicked(object sender, EventArgs e)
         {
             //Homework
+            firstnumber = 0;
+            currentOperator = Operator.None;
+            result = 0;
+            Display.Text = "0";
         }
 
         private void BackSpaceButton_Clicked(object sender, EventArgs e)
@@ -125,13 +131,17 @@
         {
             //Homework
             //Should work in a correct way. eg. after operator click, it replace current value
-            if(Display.Text.Length>10)
+            string current = Display.Text + digit.ToString(); 
+            if(current.Length>10)
             {
                 await DisplayAlert("Hata", "Sayı maksimum 10 basamaklı olabilir", "Tamam");
 
                 return;
             }
-            Display.Text += digit;
+            
+            
+            Display.Text = current.TrimStart( '0' );
+            if (Display.Text == "") { Display.Text = "0"; }
         }
     }
 }
