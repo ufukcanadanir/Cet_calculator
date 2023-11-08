@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿
 
 namespace CetCalculator
 {
@@ -7,6 +7,7 @@ namespace CetCalculator
         double result = 0;
         double firstnumber = 0;
         Operator currentOperator = Operator.None;
+        bool isFirstNumberAfterOperator = true;
 
         public MainPage()
         {
@@ -31,7 +32,10 @@ namespace CetCalculator
         private void BackSpaceButton_Clicked(object sender, EventArgs e)
         {
             //Homework
-
+            //"289898" => substring(
+            
+            Display.Text=Display.Text.Substring(0, Display.Text.Length - 1);
+            if(Display.Text.Length ==0) Display.Text = "0";
         }
 
         private async void Button7_Clicked(object sender, EventArgs e)
@@ -91,6 +95,11 @@ namespace CetCalculator
 
         private void SubtractButton_Clicked(object sender, EventArgs e)
         {
+            
+            currentOperator = Operator.Subtract;
+            firstnumber = Convert.ToDouble(Display.Text);
+           
+            isFirstNumberAfterOperator= true;
 
         }
 
@@ -106,6 +115,7 @@ namespace CetCalculator
                     result = firstnumber + secondNumber;
                     break;
                 case Operator.Subtract:
+                    result = firstnumber - secondNumber;
                     break;
                 case Operator.Multiply:
                     break;
@@ -124,6 +134,7 @@ namespace CetCalculator
         {
             currentOperator = Operator.Add;
             firstnumber = Convert.ToDouble(Display.Text);
+            isFirstNumberAfterOperator= true;
         }
 
        
@@ -131,7 +142,21 @@ namespace CetCalculator
         {
             //Homework
             //Should work in a correct way. eg. after operator click, it replace current value
-            string current = Display.Text + digit.ToString(); 
+            string current = "";
+            
+            current =  isFirstNumberAfterOperator ? digit.ToString() :  Display.Text + digit.ToString();
+
+            //if (isFirstNumberAfterOperator)
+            //{
+            //    current = digit.ToString();
+            //} else
+            //{
+            //    current = Display.Text + digit.ToString();
+            //}
+            
+            
+            
+            isFirstNumberAfterOperator = false;
             if(current.Length>10)
             {
                 await DisplayAlert("Hata", "Sayı maksimum 10 basamaklı olabilir", "Tamam");
