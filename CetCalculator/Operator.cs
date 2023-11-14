@@ -8,6 +8,6 @@ namespace CetCalculator
 {
      public enum Operator
     {
-      None,  Add, Subtract, Multiply, Divide
+      None,  Add, Subtract, Multiply, Divide,EqualsTo
     }
 }

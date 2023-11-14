@@ -6,8 +6,10 @@ namespace CetCalculator
     {
         double result = 0;
         double firstnumber = 0;
+        double secondnumber = 0;
         Operator currentOperator = Operator.None;
         bool isFirstNumberAfterOperator = true;
+        bool isFirstOperatorClicked = false;
 
         public MainPage()
         {
@@ -33,9 +35,9 @@ namespace CetCalculator
         {
             //Homework
             //"289898" => substring(
-            
-            Display.Text=Display.Text.Substring(0, Display.Text.Length - 1);
-            if(Display.Text.Length ==0) Display.Text = "0";
+
+            Display.Text = Display.Text.Substring(0, Display.Text.Length - 1);
+            if (Display.Text.Length == 0) Display.Text = "0";
         }
 
         private async void Button7_Clicked(object sender, EventArgs e)
@@ -53,11 +55,6 @@ namespace CetCalculator
             await digitClicked(9);
         }
 
-        private void DivisionButton_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
         private async void Button4_Clicked(object sender, EventArgs e)
         {
             await digitClicked(4);
@@ -73,39 +70,105 @@ namespace CetCalculator
             await digitClicked(6);
         }
 
-        private void MultiplyButton_Clicked(object sender, EventArgs e)
-        {
-
-        }
 
         private async void Button1_Clicked(object sender, EventArgs e)
         {
-           await digitClicked(1);
+            await digitClicked(1);
         }
 
         private async void Button2_Clicked(object sender, EventArgs e)
         {
-          await  digitClicked(2);
+            await digitClicked(2);
         }
 
         private async void Button3_Clicked(object sender, EventArgs e)
         {
             await digitClicked(3);
         }
+        private void DivisionButton_Clicked(object sender, EventArgs e)
+        {
+            currentOperator = Operator.Divide;
+            if (isFirstOperatorClicked == true)
+            {
+                secondnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
+                result = firstnumber / secondnumber;
+                Display.Text = result.ToString();
+                isFirstOperatorClicked = true;
+            }
+            else
+            {
+                firstnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
 
+                isFirstOperatorClicked = true;
+            }
+        }
+
+
+        private void MultiplyButton_Clicked(object sender, EventArgs e)
+        {
+            currentOperator = Operator.Multiply;
+            if (isFirstOperatorClicked == true)
+            {
+                secondnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
+                result = firstnumber * secondnumber;
+                Display.Text = result.ToString();
+                isFirstOperatorClicked = true;
+            }
+            else
+            {
+                firstnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
+
+                isFirstOperatorClicked = true;
+            }
+        }
         private void SubtractButton_Clicked(object sender, EventArgs e)
         {
-            
             currentOperator = Operator.Subtract;
-            firstnumber = Convert.ToDouble(Display.Text);
-           
-            isFirstNumberAfterOperator= true;
+            if (isFirstOperatorClicked == true)
+            {
+                secondnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
+                result = firstnumber - secondnumber;
+                Display.Text = result.ToString();
+                isFirstOperatorClicked = true;
+            }
+            else
+            {
+                firstnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
 
+                isFirstOperatorClicked = true;
+            }
         }
+            private void AddButton_Clicked(object sender, EventArgs e)
+        {
+            currentOperator = Operator.Add;
+
+            if (isFirstOperatorClicked == true)
+            {
+                secondnumber = Convert.ToDouble(Display.Text);
+                isFirstNumberAfterOperator = true;
+                result = firstnumber + secondnumber;
+                Display.Text = result.ToString();
+                isFirstOperatorClicked = true;
+            }
+            else
+            {
+            firstnumber = Convert.ToDouble(Display.Text);
+            isFirstNumberAfterOperator = true;
+
+            isFirstOperatorClicked = true;
+            }
+        }
+
 
         private void EqualButton_Clicked(object sender, EventArgs e)
         {
-            double secondNumber= Convert.ToDouble(Display.Text);
+            double secondNumber = Convert.ToDouble(Display.Text);
             double result = 0;
             switch (currentOperator)
             {
@@ -125,26 +188,21 @@ namespace CetCalculator
                     break;
             }
             Display.Text = result.ToString();
-            firstnumber= result; //??
-            currentOperator= Operator.None;
+            firstnumber = result; //??
+            currentOperator = Operator.None;
 
         }
 
-        private void AddButton_Clicked(object sender, EventArgs e)
-        {
-            currentOperator = Operator.Add;
-            firstnumber = Convert.ToDouble(Display.Text);
-            isFirstNumberAfterOperator= true;
-        }
+        
 
-       
+
         async Task digitClicked(int digit)
         {
             //Homework
             //Should work in a correct way. eg. after operator click, it replace current value
             string current = "";
-            
-            current =  isFirstNumberAfterOperator ? digit.ToString() :  Display.Text + digit.ToString();
+
+            current = isFirstNumberAfterOperator ? digit.ToString() : Display.Text + digit.ToString();
 
             //if (isFirstNumberAfterOperator)
             //{
@@ -153,19 +211,19 @@ namespace CetCalculator
             //{
             //    current = Display.Text + digit.ToString();
             //}
-            
-            
-            
+
+
+
             isFirstNumberAfterOperator = false;
-            if(current.Length>10)
+            if (current.Length > 10)
             {
                 await DisplayAlert("Hata", "Sayı maksimum 10 basamaklı olabilir", "Tamam");
 
                 return;
             }
-            
-            
-            Display.Text = current.TrimStart( '0' );
+
+
+            Display.Text = current.TrimStart('0');
             if (Display.Text == "") { Display.Text = "0"; }
         }
     }
