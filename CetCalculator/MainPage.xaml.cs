@@ -94,6 +94,7 @@ namespace CetCalculator
                 isFirstNumberAfterOperator = true;
                 result = firstnumber / secondnumber;
                 Display.Text = result.ToString();
+                firstnumber = result;
                 isFirstOperatorClicked = true;
             }
             else
@@ -115,6 +116,7 @@ namespace CetCalculator
                 isFirstNumberAfterOperator = true;
                 result = firstnumber * secondnumber;
                 Display.Text = result.ToString();
+                firstnumber = result;
                 isFirstOperatorClicked = true;
             }
             else
@@ -134,6 +136,7 @@ namespace CetCalculator
                 isFirstNumberAfterOperator = true;
                 result = firstnumber - secondnumber;
                 Display.Text = result.ToString();
+                firstnumber = result;
                 isFirstOperatorClicked = true;
             }
             else
@@ -154,6 +157,7 @@ namespace CetCalculator
                 isFirstNumberAfterOperator = true;
                 result = firstnumber + secondnumber;
                 Display.Text = result.ToString();
+                firstnumber = result;
                 isFirstOperatorClicked = true;
             }
             else
