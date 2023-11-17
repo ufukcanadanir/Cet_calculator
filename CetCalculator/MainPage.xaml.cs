@@ -174,9 +174,13 @@ namespace CetCalculator
                     result = firstnumber * secondnumber;
                     break;
                 case Operator.Divide:
-                    if(secondnumber != 0)
+                    if(secondnumber == 0)
                     {
-                    result = firstnumber / secondnumber;
+                    result = 0;
+                    }
+                    else
+                    {
+                        result = firstnumber/ secondnumber;
                     }
                     break;
                 default:
