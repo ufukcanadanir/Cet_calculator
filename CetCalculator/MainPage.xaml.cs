@@ -26,6 +26,7 @@ namespace CetCalculator
         {
             //Homework
             firstnumber = 0;
+            secondnumber = 0;
             currentOperator = Operator.None;
             result = 0;
             Display.Text = "0";
@@ -98,7 +99,6 @@ namespace CetCalculator
             {
                 firstnumber = Convert.ToDouble(Display.Text);
                 isFirstNumberAfterOperator = true;
-
                 isFirstOperatorClicked = true;
             }
             currentOperator = Operator.Divide;
@@ -117,7 +117,6 @@ namespace CetCalculator
             {
                 firstnumber = Convert.ToDouble(Display.Text);
                 isFirstNumberAfterOperator = true;
-
                 isFirstOperatorClicked = true;
             }
             currentOperator = Operator.Multiply;
@@ -134,7 +133,6 @@ namespace CetCalculator
             {
                 firstnumber = Convert.ToDouble(Display.Text);
                 isFirstNumberAfterOperator = true;
-
                 isFirstOperatorClicked = true;
             }
             currentOperator = Operator.Subtract;
@@ -187,29 +185,18 @@ namespace CetCalculator
                     break;
             }
             Display.Text = result.ToString();
-            firstnumber = result; //??
+            firstnumber = result; // to do consecutive operations
             currentOperator = Operator.None;
 
         }
         private void EqualButton_Clicked(object sender, EventArgs e)
         {
-            switch (currentOperator)
-            {
-                case Operator.None:
-                    break;
-                case Operator.Add:
-                    break;
-                case Operator.Subtract:
-                    break;
-                case Operator.Multiply:
-                    break;
-                case Operator.Divide:
-                    break;
-                default:
-                    break;
-            }
             Display.Text = result.ToString();
-            firstnumber = result; //??
+            firstnumber = 0;
+            secondnumber = 0;
+            result = 0;
+            isFirstOperatorClicked = false;
+            isFirstNumberAfterOperator=true;
             currentOperator = Operator.None;
 
         }
@@ -224,16 +211,6 @@ namespace CetCalculator
 
             current = isFirstNumberAfterOperator ? digit.ToString() : Display.Text + digit.ToString();
 
-            //if (isFirstNumberAfterOperator)
-            //{
-            //    current = digit.ToString();
-            //} else
-            //{
-            //    current = Display.Text + digit.ToString();
-            //}
-
-
-
             isFirstNumberAfterOperator = false;
             if (current.Length > 10)
             {
@@ -241,7 +218,6 @@ namespace CetCalculator
 
                 return;
             }
-
 
             Display.Text = current.TrimStart('0');
             if (Display.Text == "") { Display.Text = "0"; }
